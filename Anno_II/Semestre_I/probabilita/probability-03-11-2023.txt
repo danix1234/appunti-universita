@@ -1,0 +1,84 @@
+variabili aleatorie discrete:
+	- bernoulli 
+	- binomiali
+	- ipergeometriche
+	- geometriche
+	- di poisson
+
+
+
+BINOMIALE:
+- schema successo-insuccesso con rimpiazzo -> un fenomeno aleatorio che si ripete sempre uguale, un dato evento viene chiamato successo 
+
+(es): mi chiedo quante volte si ripete il successo in n ripetizioni del fenomeno
+(es): lancio un dado n volte. Diciamo che ho un successo ogni volta che esce 6. 
+		X = # di successi negli n lanci
+		Ω = { sequenze di n numeri, compresi tra 1,2,3,4,5,6 }
+		A = insieme delle parti di Ω 
+		- se w ∈ Ω , allora P(w) = 1/(6^n)
+		- X assume valori 0,1,2,3,4,5,6
+		- P(X=k) = binomial(n, k) * (1/6^k) * (5/6)^(n-k)
+		- X ~ B(n, 1/6)
+
+
+
+GEOMETRICA:
+- supponiamo adesso di lanciare il dado finchè non esce il primo 6. 
+	X = quante volte devo lanciare il dado affinchè venga il primo 6.
+	- X assume valori 1,2,3,... (N > 0)
+	- P(X=k): - P(X=1) = 1/6 
+              - P(X=1) = (5/6) * (1/6)
+              - P(X=k) = (5/6)^k-1 * (1/6)
+
+In generale: schema successo-insuccesso con rimpiazzo, ripeto lo schema fino ad avere successo.
+             Indichiamo con p = P(successo in una data ripetizione)
+             X = numero di ripetizioni necessarie ad avere un successo, allora X assume valore N>0, P(X=k) = (1-p)^(k-1) * p        se k ∈ N>0
+             Diremo allora che X è una variabile aleatoria discreta di tipo GEOMETRICO modificato, di parametro p ---> X ~ G-tilda (p)
+
+Per definire il tipo geometrico (non modificato), considerimo Y = # insuccessi necessari ad avere il primo successo     (Y = X-1)
+             Y assume valori N>=0
+             P(X=k) = (1-p)^k * p           per k = 0,1,2,...
+             Diremo allora che Y è una variabile aleatoria di tipo GEOMETRICO di parametro p ---> G(p)
+
+Siano Px e Py le densità di X e Y, vediamo che in effetti sono densità discrete astratte [[VEDI IMMAGINE]] 
+
+
+
+PROPRIETÀ DI MANCANZA DI MEMORIA:
+    X variabile aleatoria con valori in N>=0
+    Diciamo che X MANCA DI MEMORIA se vale la seguente per ogni [[VEDI IMMAGINE]]
+    
+oss: Y~G(p) ---> allora Y manca di memoria: [[VEDI IMMAGINE]]
+vediamo che Y manca di memoria: [[VEDI IMMAGINE]]
+            
+
+
+DI POISSON:
+- dato lambda appartente a R>0, definiamo la densità di Poisson astratta P(k) = e^(-lamba) * (lambda^k) / k!        per k=0,1,2,...
+                                                                                0                                   altrimenti
+
+Per vedere che è effettivamente una densità discreta astratta, serve vedere che la sommatoria per k da 0 a +infinito di p(k) = 1 [[VEDI IMMAGINE]]
+
+infatti [[VEDI IMMAGINE]]
+
+se X è una variabile aleatoria con valori in N>=0, con densita p(k) allora diciamo che X è una variabile aleatoria di Poisson di parametro lambda 
+e scriviamo X~P(lambda)
+
+PROP: sia lambda > 0, allora la densità di B(n, lambda/n) per n->+oo, tende alla densità di lambda
+
+Detto altrimenti, se n grande e p piccolo, posso approssimare B(n,p) con P(n*p)			
+L'approssimazione è considerata eccellente in statistica se n>=100, p<=10/n
+
+(es) In Italia nascono 1_000_000 bambini all anno. Una malattia rara colpisce un bambino ogni 200_000. Qual'è la probabilità che questo anno nascano più di 5
+bambini con tale malattia?
+X = numero di bambini quest'anno con la malattia in question. P(X>=5)=?
+X ~ B(1_000_000, 1/200_000) [[VEDI IMMAGINE]]
+X ~ P(1_000_000 / 200_000) = P(5) [[VEDI IMMAGINE]]
+
+
+
+
+
+
+
+
