@@ -1,5 +1,6 @@
 # ignore directories named appunti_tmp (to allow storing modified files without risking commiting them ;-)
 tmp/
+.ipynb_checkpoints/
 
 # ignore libreoffice lock files
 .~lock*#
