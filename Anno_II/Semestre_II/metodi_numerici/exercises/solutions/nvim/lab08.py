@@ -113,6 +113,44 @@ def descent_draw():
         A, b, x0, X, Y, Z, f, itmax, tol)
 
 
+def jacobbi(A, b, x0, toll, it_max):
+    d = np.diag(A)
+    invM = np.diag(1 / d)
+    E = np.tril(A, -1)
+    F = np.triu(A, 1)
+    N = -(E+F)
+    T = invM @ N
+    eigs = np.linalg.eigvals(T)
+    rags = np.max(np.abs(eigs))
+
+    print(rags)
+
+    it = 0
+    er_vet = []
+    err = np.inf
+    q = invM @ b
+    while it <= it_max and err >= toll:
+        x = T @ x0 + q
+        # x = (b + N @ x0)
+        err = np.linalg.norm(x-x0)/np.linalg.norm(x)
+        er_vet.append(err)
+        x0 = x.copy()
+        it += 1
+
+    return x, it, er_vet
+
+
+def test_jacobbi():
+    n = 3
+    A = np.array([[4, 1, 3], [3, 4, 1], [1, 1, 17]])
+    b = np.sum(A, axis=1).reshape(n, 1)
+    x0 = np.zeros_like(b)
+    itmax = 500
+    toll = 1e-8
+    x, it, er_vet = jacobbi(A, b, x0, toll, itmax)
+
+
 # actual execution
 # descent()
-descent_draw()
+# descent_draw()
+test_jacobbi()
