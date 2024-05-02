@@ -26,7 +26,7 @@ where HireDate > '1993-05-03' and Title='Sales Representative';
 anche il nome della categoria di appartenenza*/
 select Products.*, Categories.CategoryName
 from Products, Categories
-where Discontinued = 0 and Products.CategoryID = Categories.CategoryID
+where not Discontinued and Products.CategoryID = Categories.CategoryID
 order by ProductID;
 
 select Products.*, Categories.CategoryName
@@ -47,14 +47,19 @@ where ShipCity = 'Rio de Janeiro';
 
 /* 8.	Selezionare gli ordini (OrderID, OrderDate, ShippedDate) per cui la spedizione (ShippedDate)
 è avvenuta entro 30 giorni dalla data dell’ordine (OrderDate)*/
-select distinct OrderID, OrderDate, ShippedDate
-from Orders
-where ShippedDate > OrderDate + 30
 
 /* 9.	Selezionare l’elenco dei prodotti che hanno un costo compreso tra 18 e 50, ordinando il risultato
 in ordine di prezzo crescente */
+select *
+from Products
+where UnitPrice between 18 and 50
+order by UnitPrice;
 
 /* 10.	Selezionare tutti i clienti (CustomerID, CompanyName) che hanno ordinato il prodotto 'Chang'*/
+select distinct C.CustomerID, CompanyName
+from Customers C,Orders O, `Order Details` OD,Products P 
+where C.CustomerID = O.CustomerID and OD.OrderID = O.OrderID and OD.ProductID = P.ProductID
+and ProductName = 'Chang';
 
 /* 11.	Selezionare i clienti che non hanno mai ordinato prodotti di categoria ‘Beverages’*/
 
