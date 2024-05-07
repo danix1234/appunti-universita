@@ -39,9 +39,19 @@ def qrls(B, y):
     return a
 
 
-def test_pol_reg(grado=None, fun=eqnorm):
-    x = np.array([-3.5,  -3, -2, -1.5, -0.5, 0.5, 1.7, 2.5, 3])
-    y = np.array([-3.9, -4.8, -3.3, -2.5, 0.3, 1.8, 4, 6.9, 7.1])
+def test_pol_reg(grado=None, fun=eqnorm, coords=0):
+    if coords == 0:
+        x = np.array([-3.5,  -3, -2, -1.5, -0.5, 0.5, 1.7, 2.5, 3])
+        y = np.array([-3.9, -4.8, -3.3, -2.5, 0.3, 1.8, 4, 6.9, 7.1])
+    elif coords == 1:
+        x = np.array([-3.14, -2.4, -1.57, -0.7, -0.3, 0, 0.4, 0.7, 1.57])
+        y = np.array([0.02, -1, -0.9, -0.72, -0.2, -0.04, 0.65, 0.67, 1.1])
+    elif coords == 2:
+        x = np.array([1.001, 1.004, 1.005, 1.0012,
+                     1.0013, 1.0014, 1.0015, 1.0016])
+        y = np.array([-1.2, -0.95, -0.9, -1.15, -1.1, -1])
+    else:
+        return
     m = x.shape[0]
     if grado is None:
         n = m-1  # grado del polinomio di regressione
@@ -61,4 +71,4 @@ def test_pol_reg(grado=None, fun=eqnorm):
     plt.show()
 
 
-test_pol_reg(grado=None, fun=qrls)
+test_pol_reg(grado=None, fun=qrls, coords=1)
