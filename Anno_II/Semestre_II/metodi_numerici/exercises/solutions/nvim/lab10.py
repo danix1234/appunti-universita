@@ -72,3 +72,44 @@ def test_pol_reg(grado=None, fun=eqnorm, coords=0):
 
 
 test_pol_reg(grado=None, fun=qrls, coords=1)
+
+
+# build jth lagrange polynomial
+def plagr(xnodi, j):
+    xzeri = np.zeros_like(xnodi)
+    n = xnodi.size
+
+    if j == 0:
+        xzeri = xnodi[1:n]
+    else:
+        xzeri = np.append(xnodi[0:j], xnodi[j+1, n])
+
+    num = np.poly(xzeri)
+    den = np.polyval(num, xnodi[j])
+    p = num / den
+
+    return p
+
+
+def interpl(x, y, xv):
+    n = x.size
+    nv = xv.size
+    L = np.zeros((nv, n))
+
+    for j in range(n):
+        p = plagr(x, y)
+        L[:, j] = np.polyval(p, xv)
+
+    return L@y
+
+
+def f(x): return 3*x**3 + 2*x**2 + 2*x - 1
+
+
+n = 3
+x = np.linspace(-1, 1, n+1)
+y = f(x)
+xv = np.linspace(-1, 1, 200)
+pol_interpl = interpl(x, y, xv)
+plt.plot(xv, pol_interpl, x, y, 'ro')
+plt.show()
